@@ -1,3 +1,6 @@
 permissive { su }
 permissive { adbd }
 allow init adbd process2 nosuid_transition
+allow domain magisk unix_stream_socket { read write getattr ioctl }
+allow domain magisk fifo_file { read write getattr ioctl }
+allow domain magisk fd use
