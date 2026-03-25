@@ -3,6 +3,7 @@ LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 LOCAL_MODULE := adb_root_helper
 LOCAL_SRC_FILES := lib.cpp
+LOCAL_CPPFLAGS := -fno-threadsafe-statics
 LOCAL_LDFLAGS := -nodefaultlibs
 LOCAL_LDLIBS := -ldl
 
