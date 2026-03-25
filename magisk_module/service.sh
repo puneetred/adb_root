@@ -16,5 +16,6 @@ while [ $max_wait -gt 0 ]; do
 done
 
 if [ "$BOOT_COMPLETED" = "false" ];then
-    touch "$MODDIR"/disable
+    # touch "$MODDIR"/disable
+    echo "adbd did not start in time, but auto-reset is disabled."
 fi
