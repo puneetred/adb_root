@@ -1,4 +1,7 @@
 #include <unistd.h>
+#include <stdio.h>
+#include <errno.h>
+#include <string.h>
 
 int main(int argc, char** argv) {
     const char* real_adbd = "/apex/com.android.adbd/bin/adbd.real";
@@ -13,5 +16,13 @@ int main(int argc, char** argv) {
         const_cast<char*>("--root_seclabel=u:r:magisk:s0")
     };
 
-    return execve(real_adbd, new_argv, envp);
+    int ret = execve(real_adbd, new_argv, envp);
+    
+    // If we reach here, execve failed
+    FILE* kmsg = fopen("/dev/kmsg", "w");
+    if (kmsg) {
+        fprintf(kmsg, "adb_root: execve failed: %s (%d) for path %s\n", strerror(errno), errno, real_adbd);
+        fclose(kmsg);
+    }
+    return ret;
 }
